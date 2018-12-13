@@ -1,0 +1,18 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core" controllerName="app.components.main.main">
+	<Dialog title="Sort by" showCancelButton="false" contentWidth="250px">
+		<content>
+			<FlexBox justifyContent="Center">
+				<VBox justifyContent="Center" alignItems="Start">
+					<RadioButton groupName="GroupSort" text="Start Date" select="doSort" selected="{/radio1}"/>
+					<RadioButton groupName="GroupSort" text="Cost" select="doSort" selected="{/radio2}"/>
+					<RadioButton groupName="GroupSort" text="MWH" select="doSort" selected="{/radio3}"/>
+					<RadioButton groupName="GroupSort" text="Duration" select="doSort" selected="{/radio4}"/>
+				</VBox>
+			</FlexBox>
+		</content>
+		<endButton>
+			<Button text="Cancel" icon="sap-icon://decline" press="onDialogCancelButton" />
+		</endButton>
+	</Dialog>
+</core:FragmentDefinition>

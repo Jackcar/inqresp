@@ -1,0 +1,23 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core" controllerName="app.components.main.main">
+	<Dialog title="User Search" showCancelButton="false"
+		contentWidth="90%">
+		<content>
+			<VBox width="100%">
+				<Label text="First Name" />
+				<Input type="Text" placeholder='text...' value="{/first}" />
+				<Label text="" />
+				<Label text="Last Name" />
+				<Input type="Text" placeholder='text...' value="{/last}" />
+				<Label text="Result" class="padded" />
+				<List items="{/resultSet}" growing="true" growingThreshold="1000" mode="None" >
+					<StandardListItem title="{NameText}" type="Navigation" press="onUserListPress" />
+				</List>
+			</VBox>
+		</content>
+		<buttons>
+			<Button text="Search" press="onUserSearch" />
+			<Button text="Cancel" press="onDialogCancelButton" />
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,36 @@
+<core:FragmentDefinition xmlns="sap.m"
+	xmlns:core="sap.ui.core" controllerName="app.components.main.main">
+	<Dialog title="Search" showCancelButton="false">
+		<content>
+			<VBox width="100%">
+				<Select items="{/range}" selectedKey="{/selectedRange}"
+					width="100%" change="onRangeChange">
+					<items>
+						<core:ListItem key="{key}" text="{text}" />
+					</items>
+				</Select>
+				<Label text="" />
+				<FlexBox justifyContent="Center">
+					<Label text="{/searchMSG}" class="error" visible="{/searchMSGError}"/>
+					<Label text="{/searchMSG}" class="warning" visible="{/searchMSGWarning}"/>
+				</FlexBox>
+				<VBox>
+					<FlexBox alignItems="Center" justifyContent="Start">
+						<Label text="Start Date" class="labelWidth" />
+						<DatePicker value="{/searchFromDate}" valueFormat="yyyy-MM-dd"
+							change="onDateChange" enabled="{/showRange}" />
+					</FlexBox>
+					<FlexBox alignItems="Center" justifyContent="Start">
+						<Label text="End Date" class="labelWidth" />
+						<DatePicker value="{/searchToDate}" valueFormat="yyyy-MM-dd"
+							change="onDateChange" enabled="{/showRange}" />
+					</FlexBox>
+				</VBox>
+			</VBox>
+		</content>
+		<buttons>
+			<Button icon="sap-icon://search" text="Search" press="onSearch" />
+			<Button text="Cancel" icon="sap-icon://decline" press="onDialogCancelButton" />
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

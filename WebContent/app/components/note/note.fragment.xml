@@ -1,0 +1,24 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" controllerName="app.components.main.main">
+	<Dialog title="{/title}" showCancelButton="false" contentWidth="90%">
+		<content>
+			<VBox width="100%">
+				<Label text="{/typeLabel}"/>
+				<Select items="{/type}" selectedKey="{/note/NoteType}" width="100%">
+					<items>
+						<core:ListItem key="{key}" text="{text}" />
+					</items>
+				</Select>
+				<Label text="" />
+                <Label text="{/titleLabel}"/>
+				<Input placeholder='text...' value="{/note/NoteTitle}"/>
+
+				<Label text="{/textLabel}"/>
+				<TextArea placeholder='text...' value="{/note/NoteText}" rows="3" width="100%"/>
+			</VBox>
+		</content>
+		<buttons>
+			<Button text="Save" press="onNewNotePress" />
+			<Button text="Cancel" press="onDialogCancelButton" />
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

@@ -1,0 +1,120 @@
+@CHARSET "ISO-8859-1";
+html, body, #content {
+  height: 100% !important;
+  margin: 0;
+}
+
+.labelWidth {
+	width: 72px;
+}
+
+.maxWidth {
+	width: 100% !important;
+}
+
+.padded {
+	padding: 5px;
+}
+
+.paddedTop {
+	padding-top: 5px;
+}
+
+.paddedTopBottom {
+	padding-top: 10px !important;
+	padding-bottom: 10px !important;
+}
+
+.paddedRight {
+	padding-right: 5px;
+}
+
+.sapMITBFilter {
+	margin: 0px !important;
+	width: 75px !important; 
+}
+
+.fontTitle { font-size: 150%; !important; }
+.blackFont { color: black !important; }
+
+.sapMITBContainerContent {
+	background-color: white ;
+}
+
+.sapMITBContentArrow {
+	border-bottom: 0.125rem solid transparent;
+}
+
+.blankPage {
+	position: relative;
+}
+
+.sapMPageHeader::before {
+	border: none;
+}
+
+.blankPage:after {
+	content: "";
+	display: block;
+	position: absolute;
+	top: 0;
+	left: 0;
+	background: url(../img/SPLogo.png) center center no-repeat;
+	width: 100%;
+	height: 100%;
+	filter: alpha(opacity = 50);
+	opacity: 0.5;
+	z-index: -1;
+	opacity: 0.5;
+}
+
+html.sap-desktop .sapMDialog {
+	min-width: 10rem !important;
+}
+
+li[data-style="leftbarRed"] {
+	border-left: 6px solid red !important;
+}
+
+li[data-style="leftbarGreen"] {
+	border-left: 6px solid green !important;
+}
+
+.whiteBackground {
+	background-color: white !important;
+}
+
+.selectedMark {
+	background-color: #f2f2f2 !important;
+	border-left: 10px solid #c4beb2 !important;
+}
+
+div[data-noteClass="customerNote"] {
+	border-left: 10px solid rgba(0,157,224,0.8) !important;
+	background-color: #f2f2f2 !important;
+	padding: 10px;
+	margin: 5px;
+}
+
+div[data-noteClass="internalNote"] {
+	background-color: #f2f2f2 !important;
+	padding: 10px;
+	margin: 5px;
+}
+
+.error {
+   color: red;
+   font-size: 80%;
+}
+
+.warning {
+    color: orange;
+    font-size: 80%;
+}
+
+.noBottomBorder {
+	border-bottom: none !important;
+}
+
+div[data-class="active"] { border: 1px solid red !important; }
+.versionLabel { font-size:12px !important; }

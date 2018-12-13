@@ -1,0 +1,408 @@
+<mvc:View controllerName="app.components.main.main" xmlns:u="sap.ui.unified"
+	xmlns:l="sap.ui.layout" xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" 
+	xmlns="sap.m" xmlns:f="sap.ui.layout.form">
+	<SplitApp id="SplitAppMain" initialMaster="search"
+		initialDetail="detail" orientationChange="onOrientationChange">
+		<detailPages>
+			<Page id="detail" class="blankPage" enableScrolling="true">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button id="CableReplace-prevButton" visible="{/isPhone}"
+								press="onPressDetailBack" icon="sap-icon://arrow-left" tooltip="Back to search results"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title text="Details" level="H3"></Title>
+						</contentMiddle>
+					</Bar>
+				</customHeader>
+				<VBox visible="{/haveResults}" width="100%" height="100%">
+					<HBox width="100%" class="sapMOH">
+						<VBox>
+							<FlexBox>
+								<VBox class="paddedRight">
+									<Label text="Case ID:" />
+									<Label text="Tracking ID:" />
+									<Label text="Topic:" />
+									<Label text="Channel:" />
+								</VBox>
+								<VBox>
+									<Label text="{/detail/notification/ExtKey}" class="blackFont" />
+									<Label text="{/detail/notification/EsbId}" class="blackFont" />
+									<Label text="{/detail/notification/CaseTitle}" class="blackFont" />
+									<Label text="{/detail/notification/ChannelDesc}" class="blackFont" />
+								</VBox>
+							</FlexBox>
+						</VBox>
+					</HBox>
+					<VBox width="100%" height="100%">
+						<IconTabBar id="idIconTabBarMulti" class="sapUiResponsiveContentPadding" 
+							expandable="false"
+							select="onSelectChanged">
+							<items>
+								<IconTabFilter icon="sap-icon://hint"
+									justifyContent="Center"
+									text="Info"
+									key="Info">
+									<VBox>
+										<f:Form maxContainerCols="1" editable="true" class="isReadonly">
+											<f:title>
+												<core:Title text="General Data" />
+											</f:title>
+											<f:layout>
+												<f:ResponsiveGridLayout labelSpanXL="4"
+													labelSpanL="3" labelSpanM="4" labelSpanS="12"
+													adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4"
+													emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1"
+													columnsM="1" singleContainerFullSize="false" />
+											</f:layout>
+											<f:formContainers>
+												<f:FormContainer>
+													<f:formElements>
+														<f:FormElement label="Processor">
+															<f:fields>
+																<FlexBox>
+																	<Button icon="sap-icon://search" press="displaySearchUser" tooltip="Search for user"/>
+																	<Input value="{/detail/notification/Processor}"
+																		press="processorSuggest" enable="false" />
+																</FlexBox>
+															</f:fields>
+														</f:FormElement>
+													</f:formElements>
+												</f:FormContainer>
+											</f:formContainers>
+										</f:Form>
+										<f:Form maxContainerCols="1" editable="false" class="isReadonly">
+											<f:title>
+												<core:Title text="Customer Information" />
+											</f:title>
+											<f:layout>
+												<f:ResponsiveGridLayout labelSpanXL="4"
+													labelSpanL="3" labelSpanM="4" labelSpanS="12"
+													adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4"
+													emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1"
+													columnsM="1" singleContainerFullSize="false" />
+											</f:layout>
+											<f:formContainers>
+												<f:FormContainer>
+													<f:FormElement label="Full Name">
+														<f:fields>
+															<Text text="{/detail/notification/CustomerName}" />
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Phone">
+														<f:fields>
+															<Text text="{/detail/notification/CustomerPhone}" />
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Email">
+														<f:fields>
+															<Text text="{/detail/notification/CustomerEmail}" />
+														</f:fields>
+													</f:FormElement>
+												</f:FormContainer>
+											</f:formContainers>
+										</f:Form>
+										<f:Form maxContainerCols="1" editable="true" class="isReadonly">
+											<f:title>
+												<core:Title text="Processing Data" />
+											</f:title>
+											<f:layout>
+												<f:ResponsiveGridLayout labelSpanXL="4"
+													labelSpanL="3" labelSpanM="4" labelSpanS="12"
+													adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4"
+													emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1"
+													columnsM="1" singleContainerFullSize="false" />
+											</f:layout>
+											<f:formContainers>
+												<f:FormContainer>
+													<f:FormElement label="Priority">
+														<f:fields>
+															<Select selectedKey="{/detail/notification/Priority}"
+																width="100%" maxWidth="300px" items="{/fields/Priority}">
+																<items>
+																	<core:Item key="{Priority}" text="{Description}" />
+																</items>
+															</Select>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Channel">
+														<f:fields>
+															<Text text="{/detail/notification/ChannelDesc}" />
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Status">
+														<f:fields>
+															<Select selectedKey="{/detail/notification/StatOrderno}"
+																change="statusUpdate" width="100%" maxWidth="300px"
+																items="{/fields/Status}">
+																<items>
+																	<core:Item key="{StatOrderno}" text="{StatOrdnoDescr}" />
+																</items>
+															</Select>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Reason">
+														<f:fields>
+															<Select selectedKey="{/reason/val}" enabled="{/reason/enable}"
+																width="100%" maxWidth="300px" items="{/fields/Reason}"
+																change="reasonUpdate"
+																id="reasonField">
+																<items>
+																	<core:Item key="{ReasonCode}" text="{Description}" />
+																</items>
+																<customData>
+																	<core:CustomData key="class" value="{/reason/boxClass}" writeToDom="true" />
+																</customData>
+															</Select>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Category">
+														<f:fields>
+															<Select selectedKey="{/detail/notification/Category}"
+																width="100%" change="onCategoryItemPress" maxWidth="300px"
+																items="{/fields/Category}">
+																<items>
+																	<core:Item key="{CatId}" text="{CatDesc}" />
+																</items>
+															</Select>
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="SubCategory">
+														<f:fields>
+															<Select selectedKey="{/detail/notification/SubCategory}"
+																width="100%" maxWidth="300px" items="{/fields/SubCategory}">
+																<items>
+																	<core:Item key="{CatId}" text="{CatDesc}" />
+																</items>
+															</Select>
+														</f:fields>
+													</f:FormElement>
+												</f:FormContainer>
+											</f:formContainers>
+										</f:Form>
+									</VBox>
+								</IconTabFilter>
+								<IconTabFilter icon="sap-icon://form"
+									justifyContent="Center"
+									text="Notes"
+									key="Notes">
+									<VBox>
+										<f:Form maxContainerCols="1" editable="false" class="isReadonly">
+											<f:title>
+												<core:Title text="Notes"/>
+											</f:title>
+											<f:layout>
+												<f:ResponsiveGridLayout labelSpanXL="4"
+													labelSpanL="3" labelSpanM="4" labelSpanS="12"
+													adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4"
+													emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1"
+													columnsM="1" singleContainerFullSize="false" />
+											</f:layout>
+											<f:formContainers>
+												<f:FormContainer>
+													<f:formElements>
+														<f:FormElement>
+															<f:fields>
+																<List items="{/detail/notification/CaseToCaseNotes/results}"
+																	growing="true" growingThreshold="1000" mode="None">
+																	<items>
+																		<CustomListItem class="noBottomBorder">
+																			<VBox>
+																				<FlexBox>
+																					<VBox width="100%">
+																						<Text text="{NoteHeader}"/>
+																						<Text text=""/>
+																					</VBox>
+																					<FlexBox 
+																						width="100%"
+																						alignItems="Start"
+																						justifyContent="End" 
+																						visible="{=${NoteHeader}.indexOf('NEW') > 0}">
+																						<Button icon="sap-icon://edit" press="displayNote" />
+																					</FlexBox>
+																				</FlexBox>
+																				<Text text="{NoteContentUpdated}" />
+																				<customData>
+																					<core:CustomData key="noteClass"
+																						value="{customerClass}" writeToDom="true" />
+																				</customData>
+																			</VBox>
+																		</CustomListItem>
+																	</items>
+																</List>
+															</f:fields>
+														</f:FormElement>
+													</f:formElements>
+												</f:FormContainer>
+											</f:formContainers>
+										</f:Form>
+									</VBox>
+								</IconTabFilter>
+								<IconTabFilter icon="sap-icon://attachment"
+									justifyContent="Center"
+									text="Attachments"
+									key="Attachments">
+									<VBox>
+										<f:Form maxContainerCols="1" editable="false" class="isReadonly">
+											<f:title>
+												<core:Title text="Attachments" />
+											</f:title>
+											<f:layout>
+												<f:ResponsiveGridLayout labelSpanXL="4"
+													labelSpanL="3" labelSpanM="4" labelSpanS="12"
+													adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4"
+													emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1"
+													columnsM="1" singleContainerFullSize="false" />
+											</f:layout>
+											<f:formContainers>
+												<f:FormContainer>
+													<f:formElements>
+														<f:FormElement>
+															<f:fields>
+																<List
+																	items="{/detail/notification/CaseToCaseAttachment/results}"
+																	growing="true" growingThreshold="1000" mode="None">
+																	<items>
+																		<CustomListItem class="paddedTop noBottomBorder">
+																			<core:HTML content='{anchor}' />
+																		</CustomListItem>
+																	</items>
+																</List>
+															</f:fields>
+														</f:FormElement>
+													</f:formElements>
+												</f:FormContainer>
+											</f:formContainers>
+										</f:Form>
+									</VBox>
+								</IconTabFilter>
+								<IconTabFilter icon="sap-icon://email"
+									justifyContent="Center"
+									text="Email"
+									key="Email">
+									<VBox>
+										<f:Form maxContainerCols="2" editable="true" class="isReadonly">
+											<f:title>
+												<core:Title text="Email" />
+											</f:title>
+											<f:layout>
+												<f:ResponsiveGridLayout labelSpanXL="4"
+													labelSpanL="3" labelSpanM="4" labelSpanS="12"
+													adjustLabelSpan="false" emptySpanXL="0" emptySpanL="4"
+													emptySpanM="0" emptySpanS="0" columnsXL="2" columnsL="1"
+													columnsM="1" singleContainerFullSize="false" />
+											</f:layout>
+											<f:formContainers>
+												<f:FormContainer>
+													<f:FormElement label="To">
+														<f:fields>
+															<Input value="{/detail/notification/CustomerEmail}" press="processorSuggest"
+																enabled="false" />
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement label="Subject">
+														<f:fields>
+															<Input value="{/email/subject}" press="processorSuggest"
+																enabled="false" />
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement>
+														<f:fields>
+															<TextArea Type="Text" placeholder="Email Body ..."
+																value="{/email/body}" rows="5" />
+														</f:fields>
+													</f:FormElement>
+													<f:FormElement>
+														<f:fields>
+															<HBox alignItems="Start" justifyContent="End">
+																<Button icon="sap-icon://email" text="Send"
+																	width="200px" press="onSendPress" tooltip="Send email"/>
+															</HBox>
+														</f:fields>
+													</f:FormElement>
+												</f:FormContainer>
+											</f:formContainers>
+										</f:Form>
+									</VBox>
+								</IconTabFilter>
+							</items>
+						</IconTabBar>
+					</VBox>
+					<Title text="" level="H2" />
+				</VBox>
+				<footer class="footer">
+					<Bar>
+						<contentLeft>
+							<Button visible="{/haveResults}" tooltip="Open CRM" icon="sap-icon://chain-link" press="openLinkInDifferentTab" />
+						</contentLeft>
+						<contentRight>
+							<Button visible="{=${/haveResults} &amp;&amp; ${/detail/notification/canAddNote}}" icon="sap-icon://add" press="displayNote" tooltip="Add new note"/>
+							<Button visible="{/haveResults}" icon="sap-icon://save" press="onSavePress" tooltip="Save case"/>
+						</contentRight>
+					</Bar>
+				</footer>
+			</Page>
+		</detailPages>
+		<masterPages>
+			<Page id="search" class="sapUiStdPage">
+				<customHeader>
+					<Bar>
+						<contentLeft>
+							<Button press="backToFiori" icon="sap-icon://arrow-left" tooltip="Back to Fiori"/>
+						</contentLeft>
+						<contentMiddle>
+							<Title text="{/resultText}" level="H3"></Title>
+						</contentMiddle>
+					</Bar>
+				</customHeader>
+				<content>
+					<FlexBox justifyContent="Center" visible="{/showNoResultMessage}">
+						<Label text="No results were found" class="padded" />
+					</FlexBox>
+					<VBox visible="{/haveResults}" class="whiteBackground">
+						<Label text="{/searchText}" class="padded" />
+						<List id="resultList" items="{/notificationSet}"
+							updateFinished="selectFirst" growing="true" growingThreshold="1000"
+							itemPress="onListItemPress" mode="None">
+							<items>
+								<CustomListItem type="Active" tooltip="{tooltip}">
+									<HBox width="100%" justifyContent="Center" class="paddedTop">
+										<VBox class="maxWidth">
+											<!--Title level="H3" text="{title}" class="" / -->
+											<FlexBox>
+												<VBox class="paddedRight" alignItems="End">
+													<Label text="Case ID:" />
+													<Label text="Tracking ID:" />
+													<Label text="Topic:" />
+													<Label text="Channel:" />
+												</VBox>
+												<VBox class="maxWidth">
+													<Label text="{ExtKey}" class="blackFont" />
+													<Label text="{EsbId}" class="blackFont" />
+													<Label text="{CaseTitle}" class="blackFont" />
+													<Label text="{ChannelDesc}" class="blackFont" />
+												</VBox>
+											</FlexBox>
+										</VBox>
+									</HBox>
+								</CustomListItem>
+							</items>
+						</List>
+					</VBox>
+				</content>
+				<footer class="footer">
+					<Bar>
+						<contentMiddle>
+							<Label text="v1.0.6" class="versionLabel"/>
+						</contentMiddle>
+						<contentRight>
+							<Button visible="false" icon="sap-icon://sort" press="displaySort" tooltip="Sort results"/>
+							<Button icon="sap-icon://search" press="displaySearch" tooltip="Display search options"/>
+						</contentRight>
+					</Bar>
+				</footer>
+			</Page>
+		</masterPages>
+	</SplitApp>
+</mvc:View>
